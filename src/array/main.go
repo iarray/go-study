@@ -33,4 +33,9 @@ func main()  {
 	log.Println(s3)
 
 	log.Println(arr)
+
+	//切片扩展
+	log.Println(s1)
+	s1=s1[:cap(s1)]
+	log.Println(s1)
 }
