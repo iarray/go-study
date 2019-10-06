@@ -1,5 +1,6 @@
 package main
 
+<<<<<<< HEAD
 import (
 	"fmt"
 	"time"
@@ -26,4 +27,19 @@ func main()  {
 	s := t.Format("20060102")
 	fmt.Println(t, "=>", s)
 	// 2019-10-01 13:38:02.7036848 +0000 UTC => 20191001
+=======
+import(
+	"time"
+	"fmt"
+)
+
+func main()  {
+	start := time.Now()
+	for i := 0; i < 10000000; i++ {
+		
+	}
+	end := time.Now()
+	span := end.Sub(start)
+	fmt.Printf("cost=%s\n, typeof(span)=%T", span, span)
+>>>>>>> ab8c49282d59a228f86c8348879250262b6ca5f0
 }
