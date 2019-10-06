@@ -2,6 +2,7 @@ package main
 
 import (
 	log "fmt"
+	"sort"	
 )
 
 func main()  {
@@ -38,4 +39,31 @@ func main()  {
 	log.Println(s1)
 	s1=s1[:cap(s1)]
 	log.Println(s1)
+
+	//排序数组
+	sortArray()
+
+	//搜索数组(需要先排序)
+	searchArray()
+}
+
+func sortArray(){
+	arr := []int{5,3,4,1,2}
+	sort.Ints(arr)
+	log.Println(arr)
+
+	arr2 := []float64{5.1,3.1,4.2,1.3,2.4}
+	sort.Float64s(arr2)
+	log.Println(arr2)
+}
+
+func searchArray()  {
+	arr := []int{5,3,4,1,2}
+	r := sort.SearchInts(arr, 3)
+	log.Println(r)  //返回0, 错误, 正确应当是1
+
+	//注意调用SearchInts前需要先排序数组
+	sort.Ints(arr)
+	r = sort.SearchInts(arr, 3)
+	log.Println(r)  //返回2, 正确
 }
