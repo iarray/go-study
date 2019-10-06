@@ -63,6 +63,4 @@ func main()  {
 	fmt.Println(Receive)
 	fmt.Println(flag)
 
-	a:=10>5
-	fmt.Println(a)
 }
