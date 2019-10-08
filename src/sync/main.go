@@ -38,10 +38,10 @@ func main() {
 	fmt.Printf("o2.val = %s\n", o2.val)
 	o2.rwLock.Unlock()
 
-	//确保函数同一时间只被一个线程调用
+	//确保函数只被调用一次
 	var caller sync.Once
 	caller.Do(func() { callMe(100) })
-	caller.Do(func() { callMe(200) }) //不会执行
+	caller.Do(func() { callMe(200) }) //不会执行, caller.Do调用一次后,再调用就不起作用
 
 	for i := 0; i < 10; i++ {
 		//只会调用一次
