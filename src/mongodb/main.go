@@ -14,6 +14,7 @@ type Cat struct {
 
 func main() {
 	//格式为[mongodb://][user:pass@]host1[:port1][,host2[:port2],...][/database][?options]
+	//mongodb先添加用户hph, 密码123456并分配角色权限, mongodb可视化管理工具可以用robo 3T
 	session, err := mgo.Dial("mongodb://hph:123456@127.0.0.1:27017/test")
 	handlerErr(&err)
 
