@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
+
+	"./session"
 )
 
 func main() {
@@ -111,4 +114,13 @@ func fileServer() {
 	os.Mkdir("./upload", 0777)
 	http.HandleFunc("/upload", upload)
 	http.ListenAndServe(":8081", nil)
+}
+
+/* session */
+var globalSessionManager *session.SessionManager
+
+func init() {
+	var err error
+	globalSessionManager, err = session.NewSessionManager("memory", "go-web", 10*int64(time.Minute))
+	fmt.Println(err, globalSessionManager)
 }
