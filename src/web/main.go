@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 	"./session"
-	_ "./provider"
+	_ "./session/provider/memory"
 )
 
 func main() {

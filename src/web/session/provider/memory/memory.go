@@ -1,7 +1,7 @@
-package provider
+package memory
 
 import(
-	"../session"
+	"../../../session"
 	"fmt"
 	"time"
 	"sync"
@@ -9,7 +9,7 @@ import(
 
 func init(){
 	provider := MemoryProvider{}
-	session.RegisterProvider("memory", session.SessionProvider(&provider))
+	session.RegisterProvider("memory", &provider)
 }
 
 var sessions = make(map[string]Session)
@@ -35,7 +35,7 @@ func  (* MemoryProvider)GetOrInit(sid string) (session.Session, error){
 		sessions[sid] = Session{_id: sid, _createTime:time.Now().Unix(), data: make(map[interface{}]interface{})}
 		ses,_ = sessions[sid]
 	}
-	return session.Session(&ses), nil
+	return &ses, nil
 }
 
 func  (* MemoryProvider)Remove(sid string) error{
