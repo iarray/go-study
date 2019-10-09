@@ -32,7 +32,8 @@ func (m * MemoryProvider)Init(sid string) (session.Session, error) {
 func  (* MemoryProvider)GetOrInit(sid string) (session.Session, error){
 	ses, ok := sessions[sid]
 	if !ok {
-		sessions[sid] = Session{_id: sid, _createTime:time.Now().Unix()}
+		sessions[sid] = Session{_id: sid, _createTime:time.Now().Unix(), data: make(map[interface{}]interface{})}
+		ses,_ = sessions[sid]
 	}
 	return session.Session(&ses), nil
 }
@@ -61,12 +62,9 @@ func (s *Session)Get(key interface{}) interface{}{
 	
 	s._lock.RLock()
 	defer s._lock.RUnlock()
-
-	if s.data == nil{
-		return nil
-	}
-	
+  
 	val, ok := s.data[key]
+	fmt.Println(val, ok)
 	if !ok{
 		return nil
 	}
@@ -74,16 +72,15 @@ func (s *Session)Get(key interface{}) interface{}{
 	return val
 }
 
-func (s *Session)Set(key, value interface{}){
+func (session *Session)Set(key, value interface{}){
 	if key == nil || value == nil{
 		panic("key or value is nil")
 	}
-	s._lock.Lock()
-	defer s._lock.Unlock()
-	if s.data == nil{
-		s.data = make(map[interface{}]interface{})
-	}
-	s.data[key] = value
+	session._lock.Lock()
+	defer session._lock.Unlock()
+	 
+	session.data[key] = value
+	fmt.Printf("Set key=%s, value=%s\n", key, value)
 }
 
 func (s *Session)Remove(key interface{}){

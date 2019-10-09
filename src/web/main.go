@@ -7,16 +7,15 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
-
 	"./session"
 	_ "./provider"
 )
 
 func main() {
-	simpleWeb()
+	//simpleWeb()
 	//customRouteHandler()
 	//fileServer()
+	useSession()
 }
 
 /* 简单输出 */
@@ -121,8 +120,25 @@ var globalSessionManager *session.SessionManager
 
 func init() {
 	var err error
-	globalSessionManager, err = session.NewSessionManager("memory", "go-web", 10*int64(time.Minute))
+	globalSessionManager, err = session.NewSessionManager("memory", "sessionId", 10*60)
 	if err != nil{
 		fmt.Println(err)
 	}
+}
+
+func useSession(){
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
+		sess := globalSessionManager.SessionStart(w,r)
+		fmt.Println(sess)
+		val := sess.Get("Name")
+		if val == nil{
+			sess.Set("Name", "Mike")
+			fmt.Fprintf(w, "你是第一次访问吧, 让我给你创建一个session, 稍后刷新看看~~")
+		}else{
+			fmt.Fprintf(w, "Name:%s\n", val)
+			fmt.Fprintf(w, "SessionId:%s\n", sess.Id())
+		}
+
+	})
+	http.ListenAndServe(":8081", nil)
 }
