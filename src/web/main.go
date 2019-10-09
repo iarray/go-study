@@ -10,18 +10,18 @@ import (
 	"time"
 
 	"./session"
+	_ "./provider"
 )
 
 func main() {
-	//simpleWeb()
+	simpleWeb()
 	//customRouteHandler()
-	fileServer()
+	//fileServer()
 }
 
 /* 简单输出 */
 func simpleWeb() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(*r)
 		fmt.Fprintf(w, "hello world")
 	})
 	//不设置handler就用默认的DefaultServeMux
@@ -122,5 +122,7 @@ var globalSessionManager *session.SessionManager
 func init() {
 	var err error
 	globalSessionManager, err = session.NewSessionManager("memory", "go-web", 10*int64(time.Minute))
-	fmt.Println(err, globalSessionManager)
+	if err != nil{
+		fmt.Println(err)
+	}
 }

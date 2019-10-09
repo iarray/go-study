@@ -45,4 +45,5 @@ func RegisterProvider(providerName string, provider SessionProvider) {
 		panic("provider is nil")
 	}
 	providers[providerName] = provider
+	fmt.Printf("RegisterProvider name=%s, type=%T", providerName, provider)
 }
