@@ -1,6 +1,5 @@
 package main
 
-<<<<<<< HEAD
 import (
 	"fmt"
 	"time"
@@ -9,6 +8,15 @@ import (
 var week time.Duration
 
 func main()  {
+	//计算时间差
+	start := time.Now()
+	for i := 0; i < 10000000; i++ {
+		
+	}
+	end := time.Now()
+	span := end.Sub(start)
+	fmt.Printf("cost=%s\n, typeof(span)=%T", span, span)
+
 	t := time.Now()
 	fmt.Println(t) // 2019-10-01 21:38:02.645699 +0800 CST m=+0.009996701
 	fmt.Printf("%02d.%02d.%4d\n", t.Day(), t.Month(), t.Year())
@@ -27,19 +35,4 @@ func main()  {
 	s := t.Format("20060102")
 	fmt.Println(t, "=>", s)
 	// 2019-10-01 13:38:02.7036848 +0000 UTC => 20191001
-=======
-import(
-	"time"
-	"fmt"
-)
-
-func main()  {
-	start := time.Now()
-	for i := 0; i < 10000000; i++ {
-		
-	}
-	end := time.Now()
-	span := end.Sub(start)
-	fmt.Printf("cost=%s\n, typeof(span)=%T", span, span)
->>>>>>> ab8c49282d59a228f86c8348879250262b6ca5f0
 }
