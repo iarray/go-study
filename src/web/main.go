@@ -130,12 +130,13 @@ func useSession(){
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
 		sess := globalSessionManager.SessionStart(w,r)
 		fmt.Println(sess)
-		val := sess.Get("Name")
+		val := sess.Get("Count")
 		if val == nil{
-			sess.Set("Name", "Mike")
+			sess.Set("Count", 1)
 			fmt.Fprintf(w, "你是第一次访问吧, 让我给你创建一个session, 稍后刷新看看~~")
 		}else{
-			fmt.Fprintf(w, "Name:%s\n", val)
+			sess.Set("Count", val.(int) + 1)
+			fmt.Fprintf(w, "Count:%d\n", val)
 			fmt.Fprintf(w, "SessionId:%s\n", sess.Id())
 		}
 
